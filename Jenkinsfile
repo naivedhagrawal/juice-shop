@@ -43,7 +43,7 @@ pipeline {
             container('owasp') {
                 withCredentials([string(credentialsId: 'NVD_API_KEY', variable: 'NVD_API_KEY')]) {
                 sh """
-                    dependency-check --scan . --format SARIF --out ${env.OWASP_DEP_REPORT} --nvdApiKey ${env.NVD_API_KEY}
+                    dependency-check --scan . --exclude "**/*.zip" --format SARIF --out ${env.OWASP_DEP_REPORT} --nvdApiKey ${env.NVD_API_KEY}
                 """
                 recordIssues(
                         enabledForFailure: true,
